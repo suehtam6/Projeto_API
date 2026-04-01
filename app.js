@@ -40,18 +40,92 @@ const estadosCidades = require('./modulo/funcoes.js')
 
 // O GET é uma função de callback
 // Endpoint para listar os estados
-app.get('/estados', function(request, response){
+// Sempre que for fazer um Endpoint, deve ser colocodado o nome do projeto
+// ou o nome da empresa, junto com a versão do projeto.
+//      ex: app.get('/v1/senai/estados')
+app.get('/v1/senai/sigla/estado', function(request, response){
     let estado = estadosCidades.getListaDeEstados()
-    response.json(estado)
-    response.status(200) // Requisição bem-sucedida!!!
+    if(estado){
+        response.json(estado)
+        response.status(200) // Requisição bem-sucedida!!!
+    }else{
+        response.json({'message' : "Nenhum estado encontrado."})
+        response.status(404)  
+    }
+    
 })
 
-app.get('/cidades', function(request,response){
-    response.json({'message' : "Testando a API de cidades"})
-    response.status(200)
+// Para criar uma variavel e obter uma url personalizada de acordo com o usuario,
+// deve-se ter " :(palavra) " e assim obter o resultado desejado
+// Fazendo o Endpoint de getDadosEstado
+app.get('/v1/senai/dados/estado/:uf', function(request,response){
+    let sigla = request.params.uf
+    let estado = estadosCidades.getDadosEstado(sigla)
+    if(estado){
+        response.json(estado)
+        response.status(200)
+    }else{
+        response.json({'message' : "Nenhuma estado foi encotrado."})
+        response.status(404)  
+    }
+    
 })
+
+// Fazendo o Endpoint da função getCapitalEstado
+app.get('/v1/senai/capital/estado/:uf', function(request, response){
+    
+    let sigla = request.params.uf
+    let estado = estadosCidades.getCapitalEstado(sigla)
+    if(estado){
+        response.json(estado)
+        response.status(200)
+    }else{
+        response.json({'message' : "Nenhuma capital encontrada."})
+        response.status(404) 
+    }
+    
+})
+
+// Fazendo o Endpoint da função getEstadosRegiao
+app.get('/v1/senai/estado/regiao/:regiao', function(request, response){
+    let regiao = request.params.regiao
+    let estado = estadosCidades.getEstadosRegiao(regiao)
+    if(estado){
+        response.json(estado)
+        response.status(200)
+    }else{
+        response.json({'message' : "Nenhuma região encontrada."})
+        response.status(404) 
+    }
+})
+
+// Fazendo o Endpoint da função getCapitalPais
+app.get('/v1/senai/capital/pais', function(request, response){
+    let estado = estadosCidades.getCapitalPais()
+    if(estado){
+        response.json(estado)
+        response.status(200)
+    }else{
+        response.json({'message' : 'Nenhuma capital antiga foi encontrada.'})
+        response.status(404)
+    }
+})
+
+// Fazendo o Endpoint da função getCidades
+app.get('/v1/senai/cidade/:uf', function(request, response){
+    let sigla = request.params.uf
+    let estado = estadosCidades.getCidades(sigla)
+    if(estado){
+        response.json(estado)
+        response.status(200)
+    }else{
+        response.json({'message' : 'Nenhuma cidade foi encontrada.'})
+        response.status(404)
+    }
+})
+
 
 // Fazer um start na API (Aguardando requisição)
-app.listen(8080, function(){
+app.listen(8090, function(){
     console.log('API aguardando novas requisições...')
 })
