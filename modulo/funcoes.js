@@ -183,20 +183,14 @@ function getCidades(sigla) {
 
 }
 
-//console.log(getListaDeEstados())
-
-//console.log(getDadosEstado('sp'))
-
-//console.log(getCapitalEstado('sp'))
-
-//console.log(getEstadosRegiao('sul'))
-
-//console.log(getCapitalPais())
-
-//console.log(getCidades('sp'))
-
-
-
+module.exports = {
+        getListaDeEstados,
+        getDadosEstado,
+        getCapitalEstado,
+        getEstadosRegiao,
+        getCapitalPais,
+        getCidades
+}
 
 
 
