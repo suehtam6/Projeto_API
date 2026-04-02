@@ -46,11 +46,12 @@ const estadosCidades = require('./modulo/funcoes.js')
 app.get('/v1/senai/sigla/estado', function(request, response){
     let estado = estadosCidades.getListaDeEstados()
     if(estado){
-        response.json(estado)
         response.status(200) // Requisição bem-sucedida!!!
+        response.json(estado)
     }else{
+        response.status(404) 
         response.json({'message' : "Nenhum estado encontrado."})
-        response.status(404)  
+         
     }
     
 })
@@ -58,15 +59,17 @@ app.get('/v1/senai/sigla/estado', function(request, response){
 // Para criar uma variavel e obter uma url personalizada de acordo com o usuario,
 // deve-se ter " :(palavra) " e assim obter o resultado desejado
 // Fazendo o Endpoint de getDadosEstado
+// Como buscar a sigla ou palavra chave na API? -> request.params."uf"(deve ser a nome que vou colocar
+//  no final da minha url.
 app.get('/v1/senai/dados/estado/:uf', function(request,response){
     let sigla = request.params.uf
     let estado = estadosCidades.getDadosEstado(sigla)
     if(estado){
-        response.json(estado)
         response.status(200)
+        response.json(estado)
     }else{
-        response.json({'message' : "Nenhuma estado foi encotrado."})
         response.status(404)  
+        response.json({'message' : "Nenhuma estado foi encotrado."})
     }
     
 })
@@ -77,11 +80,11 @@ app.get('/v1/senai/capital/estado/:uf', function(request, response){
     let sigla = request.params.uf
     let estado = estadosCidades.getCapitalEstado(sigla)
     if(estado){
-        response.json(estado)
         response.status(200)
+        response.json(estado)
     }else{
-        response.json({'message' : "Nenhuma capital encontrada."})
         response.status(404) 
+        response.json({'message' : "Nenhuma capital encontrada."})
     }
     
 })
@@ -91,41 +94,80 @@ app.get('/v1/senai/estado/regiao/:regiao', function(request, response){
     let regiao = request.params.regiao
     let estado = estadosCidades.getEstadosRegiao(regiao)
     if(estado){
-        response.json(estado)
         response.status(200)
+        response.json(estado)
     }else{
-        response.json({'message' : "Nenhuma região encontrada."})
         response.status(404) 
+        response.json({'message' : "Nenhuma região encontrada."})
     }
 })
 
 // Fazendo o Endpoint da função getCapitalPais
-app.get('/v1/senai/capital/pais', function(request, response){
+app.get('/v1/senai/capital/pais/brasil', function(request, response){
     let estado = estadosCidades.getCapitalPais()
     if(estado){
-        response.json(estado)
         response.status(200)
+        response.json(estado)
     }else{
-        response.json({'message' : 'Nenhuma capital antiga foi encontrada.'})
         response.status(404)
+        response.json({'message' : 'Nenhuma capital antiga foi encontrada.'})
     }
 })
 
 // Fazendo o Endpoint da função getCidades
-app.get('/v1/senai/cidade/:uf', function(request, response){
+app.get('/v1/senai/cidade/estado/:uf', function(request, response){
     let sigla = request.params.uf
     let estado = estadosCidades.getCidades(sigla)
     if(estado){
-        response.json(estado)
         response.status(200)
+        response.json(estado)
     }else{
-        response.json({'message' : 'Nenhuma cidade foi encontrada.'})
         response.status(404)
+        response.json({'message' : 'Nenhuma cidade foi encontrada.'})
     }
 })
 
+// Fazendo um Endpoint para a documentação
+app.get('/v1/senai/help', function(request,response){
+    let docAPI = {
+        "api-description" : "API para manipular dados de Estados e Cidades do Brasil",
+        "date" : "2026-04-02",
+        "development" : "Matheus Lucas de Freitas Zacarias",
+        "version" : 1.0,
+        "endpoints" : [
+            {"router1" : "/v1/senai/sigla/estados",
+             "Description" : "Retorna a lista de todos os Estados"   
+            },
+            {
+                "router2" : "/v1/senai/dados/estado/:uf",
+                "description" : "Retorna os dados de um Estado pela virgula",
+            },
+            {
+                "router3" : "/v1/senai/capital/estado/:uf",
+                "description" : "Retorna os dados da capital de um Estado, filtrando pela sigla(uf)",
+            },
+            {
+                "router4" : "/v1/senai/estado/regiao/:regiao",
+                "description" : "Retorna os dados dos Estado, filtrando pela região",
+            },
+            {
+                "router5" : "/v1/senai/capital/pais/brasil",
+                "description" : "Retorna os estados que ja foram capitais do Brasil",
+            },
+            {
+                "router6" : "/v1/senai/cidade/estado/:uf",
+                "description" : "Retorna as cidades de cada estado, filtrando pela sigla",
+            },
+            
+        ]
+            
+    } 
+    response.status(200)
+    response.json(docAPI)
+})
 
-// Fazer um start na API (Aguardando requisição)
-app.listen(8090, function(){
+
+// Faz um start na API (Aguardando requisição)
+app.listen(8080, function(){
     console.log('API aguardando novas requisições...')
 })

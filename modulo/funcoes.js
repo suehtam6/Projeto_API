@@ -8,8 +8,6 @@
 const estados = require('./estados_cidades')
 const estadosUF = estados.listaDeEstados.estados
 
-
-
 // Fazendo uma função para pegar as siglas dos estados(UF)
 function getListaDeEstados() {
         let uf = []
@@ -18,7 +16,12 @@ function getListaDeEstados() {
                 uf.push(itemUF.sigla)
         })
 
-        estadosSiglas = { uf, 'quantidade': uf.length }
+        estadosSiglas = {
+                'status' : true,
+                'status_code' : 200,
+                'development' : 'Matheus Lucas de Freitas Zacarias',
+                 uf,
+                'quantidade': uf.length }
 
         if (estadosSiglas == null) {
                 return false
@@ -35,6 +38,9 @@ function getDadosEstado(siglaUF) {
 
                 if (buscarSigla == itemUF.sigla) {
                         dadosEstados = {
+                                'status' : true,
+                                'status_code' : 200,
+                                'development' : 'Matheus Lucas de Freitas Zacarias',
                                 uf: itemUF.sigla,
                                 descricao: itemUF.nome,
                                 capital: itemUF.capital,
@@ -52,7 +58,6 @@ function getDadosEstado(siglaUF) {
 
 }
 
-// FALTA VALIDAR
 // Verificando os dados da capital de acordo com a UF
 function getCapitalEstado(siglaUF) {
         let buscarSigla = String(siglaUF).toUpperCase()
@@ -61,6 +66,9 @@ function getCapitalEstado(siglaUF) {
         dados.forEach(function (itensDados) {
                 if (String(dados).toUpperCase() === String(itensDados).toUpperCase()) {
                         dadosCapital = {
+                                'status' : true,
+                                'status_code' : 200,
+                                'development' : 'Matheus Lucas de Freitas Zacarias',
                                 uf: itensDados.uf,
                                 descricao: itensDados.descricao,
                                 capital: itensDados.capital
@@ -76,17 +84,18 @@ function getCapitalEstado(siglaUF) {
 
 }
 
-
 // verificando os dados de acordo com a região
 function getEstadosRegiao(buscarRegiao) {
         let regiaoMod = String(buscarRegiao).toUpperCase()
         let estados = []
+        let estadoRegiao = {}
 
 
 
         estadosUF.forEach(function (itemRegiao) {
 
                 if (regiaoMod === String(itemRegiao.regiao).toUpperCase()) {
+
                         uf = itemRegiao.sigla
                         descricao = itemRegiao.nome
 
@@ -97,6 +106,9 @@ function getEstadosRegiao(buscarRegiao) {
                         estados.push(jonson)
 
                         estadoRegiao = {
+                                'status' : true,
+                                'status_code' : 200,
+                                'development' : 'Matheus Lucas de Freitas Zacarias',
                                 regiao: itemRegiao.regiao,
                                 estados
                         }
@@ -104,24 +116,24 @@ function getEstadosRegiao(buscarRegiao) {
                 }
         })
 
-        if (estadoRegiao == null || regiaoMod == '' ||
-                regiaoMod == null || !isNaN(regiaoMod)) {
-                return false
-        } else {
+        if (estadoRegiao.regiao !=null) {
                 return estadoRegiao
+        } else {
+                return false
         }
 
 
 
 }
 
-
-//VALIDADOS
-
 // FUNÇÃO PARA SABER QUAIS SÃO TODAS AS CAPITAIS QUE O BRASIL JA TEVE
 function getCapitalPais() {
 
-        let capitalPais = { capitais: [] }
+        let capitalPais = {
+                'status' : true,
+                'status_code' : 200,
+                'development' : 'Matheus Lucas de Freitas Zacarias',
+                 capitais: [] }
 
         estadosUF.forEach(function (itemCapital) {
                 if (itemCapital.capital_pais) {
@@ -158,6 +170,9 @@ function getCidades(sigla) {
 
                 if (siglaUF == String(itemCidade.sigla).toUpperCase()) {
                         resposta = {
+                                'status' : true,
+                                'status_code' : 200,
+                                'development' : 'Matheus Lucas de Freitas Zacarias',
                                 uf: itemCidade.sigla,
                                 descricao: itemCidade.nome,
                                 quantidade: itemCidade.cidades.length
@@ -191,8 +206,4 @@ module.exports = {
         getCapitalPais,
         getCidades
 }
-
-
-
-
 
