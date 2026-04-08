@@ -18,6 +18,14 @@
  * 
 *******************************************************************************************************/
 
+/*******************************************************************************************************
+ * Regras para buscar itens
+ * 
+ * Se for utilizar chave Primaria, utilize Params
+ * Se for utilizar chaves estrangeiras utilize query
+ * 
+ *******************************************************************************************************/
+
 // Import das dependencias para criar a API
 const express   = require('express')
 const cors      = require('cors')
@@ -61,8 +69,13 @@ app.get('/v1/senai/sigla/estado', function(request, response){
 // Fazendo o Endpoint de getDadosEstado
 // Como buscar a sigla ou palavra chave na API? -> request.params."uf"(deve ser a nome que vou colocar
 //  no final da minha url.
+//     ex: '/v1/senai/dados/estado/:uf' -> Varíavel via Params
+// Utilizando query para pegar itens da URL
 app.get('/v1/senai/dados/estado/:uf', function(request,response){
+    // Recebe uma variavel via Params
     let sigla = request.params.uf
+
+    //let sigla = request.query.uf
     let estado = estadosCidades.getDadosEstado(sigla)
     if(estado){
         response.status(200)
@@ -171,3 +184,4 @@ app.get('/v1/senai/help', function(request,response){
 app.listen(8080, function(){
     console.log('API aguardando novas requisições...')
 })
+
