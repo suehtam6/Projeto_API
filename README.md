@@ -34,4 +34,4 @@ Para garantir a confiabilidade das rotas, utilizei o **Postman** para realizar t
 
 1. Clone o repositório:
    ```bash
-   git clone [https://github.com/suehtam6/API_Estados_Cidades.git](https://github.com/suehtam6/API_Estados_Cidades.git)
+   git clone https://github.com/suehtam6/API_Estados_Cidades.git
