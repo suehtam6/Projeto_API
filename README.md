@@ -1,6 +1,6 @@
 # 🌍 API de Estados e Cidades
 
-Esta API fornece dados geográficos brasileiros de forma rápida e organizada. É um projeto focado em **Backend**, demonstrando como estruturar relacionamentos de banco de dados e servir informações via Node.js em um ambiente de produção real.
+Esta API fornece dados geográficos brasileiros de forma rápida e organizada. É um projeto focado em **Backend**.
 
 ---
 
