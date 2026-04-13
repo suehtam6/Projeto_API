@@ -153,7 +153,7 @@ app.get('/v1/senai/help', function(request,response){
             },
             {
                 "router2" : "/v1/senai/dados/estado/:uf",
-                "description" : "Retorna os dados de um Estado pela virgula",
+                "description" : "Retorna os dados de um Estado pela sigla",
             },
             {
                 "router3" : "/v1/senai/capital/estado/:uf",
